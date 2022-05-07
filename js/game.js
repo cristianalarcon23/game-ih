@@ -6,7 +6,7 @@ class Game{
   }
 
   _drawVirus () {
-    this.ctx.fillStyle = "darkred";
+    this.ctx.fillStyle = "yellow";
     this.ctx.fillRect(this.virus.x, this.virus.y, this.virus.width, this.virus.height);
   }
 

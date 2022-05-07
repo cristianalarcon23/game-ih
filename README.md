@@ -13,7 +13,7 @@ Minimum user stories:
 
 - User can move left 
 - User can move right
-- User can receive damage 
+- User can receive damage when he collides with drops 
 
 ## User stories Backlog
 

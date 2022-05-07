@@ -2,13 +2,32 @@
   margin: 0;
   padding: 0;
 }
+/* button styles*/
+
+button#start {
+  padding: 15px 30px;
+  border-radius: 30px;
+  font-size: 20px;
+  border: none;
+  margin: 10px 0;
+  color: black;
+  background: linear-gradient(0deg, rgba(221, 218, 154, 1) 0%, rgba(2, 123, 199, 1) 100%);
+  
+}
+
+button#start:hover {
+  background-color: rgb(72, 144, 0);
+  color: white;
+}
+
+
 
 /* Basic styles, change according to your style */
 
 #start-page,
 #lose-page {
   height: 600px;
-  width: 1000px;
+  width: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,6 +36,7 @@
   margin: 0 auto;
   border: 1px solid black;
   margin-top: 30px;
+  background-image: url('../img/virusbackground.jpg');
 }
 
 #lose-page {
@@ -29,6 +49,7 @@ canvas {
   margin: 0 auto;
   margin-top: 30px;
   margin-bottom: 50px;
+  background-image: url('../img/virusbackground.jpg');
 }
 
 /* Auxiliar classes */
