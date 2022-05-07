@@ -8,7 +8,7 @@ class Player {
 
     moveRight() {
         this.x = this.x + 25;
-        if (this.x > 1200) {
+        if (this.x > 1000) {
             this.x = 10 - this.width;
         }
     }
@@ -16,7 +16,7 @@ class Player {
     moveLeft() {
         this.x = this.x - 25;
         if (this.x + this.width < 0) {
-            this.x = 1190;
+            this.x = 990;
         }
     }
 }

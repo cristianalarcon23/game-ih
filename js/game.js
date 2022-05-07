@@ -1,7 +1,7 @@
 class Game{
   constructor(context) {
     this.ctx = context;
-    this.virus = new Player (600, 560, 40, 40);
+    this.virus = new Player (500, 460, 40, 40);
     this.health = 100;
   }
 
@@ -27,7 +27,7 @@ class Game{
   }
 
   _clean() {
-    this.ctx.clearRect(0, 0, 1200, 600);
+    this.ctx.clearRect(0, 0, 1000, 500);
   }
 
   _update() {
