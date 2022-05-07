@@ -11,7 +11,9 @@ Game's purpose and description
 
 Minimum user stories:
 
-- User can ...
+- User can move left 
+- User can move right
+- User can receive damage 
 
 ## User stories Backlog
 
