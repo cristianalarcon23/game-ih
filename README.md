@@ -23,6 +23,7 @@ Minimum user stories:
 
 - <code>game.js</code>: contains all the elements for the game to work. Methods: start(), \_update()
 - <code>scripts.js</code>: contains all the DOM manipulation code to start the game
+- <code>player.js</code>: contains all the elements that player can do. 
 
 ## Useful links
 
