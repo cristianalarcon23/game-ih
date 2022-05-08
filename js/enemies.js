@@ -1,38 +1,35 @@
-class Droplet {
+class Enemy {
     constructor (width, height) {
-        this.x = Math.floor(Math.random() * (940 - 4) + 5);
-        this.y = -60;
+        this.x = -70;
+        this.y = 20;
         this.width = width;
         this.height = height;
         this.fallInterval = undefined;
         this.role = undefined;
     }
 
-    _fallObjects () {
+    _crossingEnemies () {
         this.fallInterval = setInterval(() => {
-            if (this.y > 500) {
+            if (this.x > 1000) {
                 clearInterval(this.fallInterval);
             } else {
-                this.y = this.y + 1;
+                this.x = this.x + 1;
             }
         }, 300);
     }
 
 
-    _assignObjects () {
-        const assignment = Math.floor(Math.random() * 4);
+    _assignEnemies () {
+        const assignment = Math.floor(Math.random() * 3);
         switch (assignment) {
             case 1 :
-                this.role = "mask";
+                this.role = "negationist";
                 break;
             case 2 : 
-                this.role = "certificate";
-                break;
-            case 3 : 
-                this.role = "hydrogel";
+                this.role = "flatearthbeliever";
                 break;
             default : 
-                this.role = "mask";
+                this.role = "negationist";
                 break;
         }
     }

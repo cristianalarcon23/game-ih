@@ -5,8 +5,10 @@ class Game{
     this.health = 100;
     this.points = 0;
     this.droplets = [];
+    this.enemies = [];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
+    this.intervalCrossing = undefined;
   }
 
   _drawVirus () {
@@ -21,10 +23,23 @@ class Game{
     })
   }
 
+  _drawEnemies () {
+    this.enemies.forEach((elem) => {
+      this.ctx.fillStyle = "green";
+      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+    })
+  }
+
+  _generateEnemies () {
+    const newEnemy = new Enemy (60, 60);
+    newEnemy._assignEnemies();
+    console.log(newEnemy);
+    this.enemies.push(newEnemy);
+  }
+
   _generateDroplets () {
     const newObject = new Droplet (60, 60);
     newObject._assignObjects();
-    console.log(newObject);
     this.droplets.push(newObject);
   }
 
@@ -64,13 +79,21 @@ class Game{
     this._writeHealthPoints();
     this._writeReputationPoints();
     this._drawDroplets();
-    let counter = 0;
+    this._drawEnemies();
+    let counterFall = 0;
     this.intervalFall = setInterval(() => { 
-      if (counter < this.droplets.length) {
-        this.droplets[counter]._fallObjects();
-        counter++;
+      if (counterFall < this.droplets.length) {
+        this.droplets[counterFall]._fallObjects();
+        counterFall++;
       }
-    }, 2000);
+    }, 1500);
+    let counterCross = 0;
+    this.intervalCrossing = setInterval(() => { 
+      if (counterCross < this.enemies.length) {
+        this.enemies[counterCross]._crossingEnemies();
+        counterCross++;
+      }
+    }, 2500);
     window.requestAnimationFrame(() => this._update());
   }
 
@@ -78,7 +101,8 @@ class Game{
     this._assignControls();
     this.intervalGame = setInterval(() => {
       this._generateDroplets();
-    }, 2000);
+      this._generateEnemies();
+    }, 1000);
     this._update();
   }
 
