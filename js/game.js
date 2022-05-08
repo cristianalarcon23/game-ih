@@ -1,8 +1,9 @@
 class Game{
   constructor(context) {
     this.ctx = context;
-    this.virus = new Player (500, 460, 40, 40);
+    this.virus = new Player (500, 430, 40, 40);
     this.health = 100;
+    this.points = 0;
   }
 
   _drawVirus () {
@@ -26,6 +27,17 @@ class Game{
     });
   }
 
+  _writeHealthPoints () {
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = "15px Verdana"
+    this.ctx.fillText(`Health Points: ${this.health}`, 840, 490)
+  }
+  _writeReputationPoints () {
+    this.ctx.fillStyle = 'white';
+    this.ctx.font = "15px Verdana"
+    this.ctx.fillText(`Reputation Points: ${this.points}`, 20, 490)
+  }
+
   _clean() {
     this.ctx.clearRect(0, 0, 1000, 500);
   }
@@ -33,6 +45,8 @@ class Game{
   _update() {
     this._clean();
     this._drawVirus();
+    this._writeHealthPoints();
+    this._writeReputationPoints();
     window.requestAnimationFrame(() => this._update());
   }
 
