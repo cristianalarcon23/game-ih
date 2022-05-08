@@ -25,6 +25,8 @@ Minimum user stories:
 - <code>scripts.js</code>: contains all the DOM manipulation code to start the game
 - <code>player.js</code>: contains all the elements that player can do. 
 - <code>droplets.js</code>: contains all droplets properties.
+- <code>friends.js</code>: contains all friends properties.
+- <code>enemies.js</code>: contains all enemies properties.
 
 ## Useful links
 
@@ -32,3 +34,5 @@ Minimum user stories:
 
 - [Presentation slides]()
 - [Deployed game]()
+
+

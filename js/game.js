@@ -41,14 +41,6 @@ class Game{
   }
 
 
-
-  _generateEnemies () {
-    const newEnemy = new Enemy (60, 60);
-    newEnemy._assignEnemies();
-    console.log(newEnemy);
-    this.enemies.push(newEnemy);
-  }
-
   _generateDroplets () {
     const newObject = new Droplet (60, 60);
     newObject._assignObjects();
@@ -64,7 +56,6 @@ class Game{
   _generateFriends () {
     const newFriend = new Friend (60, 60);
     newFriend._assignFriends ();
-    console.log(newFriend);
     this.friends.push(newFriend);
   }
 
@@ -83,6 +74,26 @@ class Game{
     });
   }
 
+  _checkDropletCollision() {
+    this.droplets.forEach((elem) => {
+      if (
+        (this.virus.x >= elem.x && this.virus.x <= elem.x + elem.width || 
+        this.virus.x + this.virus.width >= elem.x && this.virus.x + this.virus.width <= elem.x + elem.width || 
+        elem.x >= this.virus.x && elem.x <= this.virus.x + this.virus.width) && 
+        (this.virus.y >= elem.y && this.virus.y <= elem.y + elem.height || 
+          this.virus.y + this.virus.height >= elem.y && this.virus.y + this.virus.height <= elem.y + elem.height || 
+          elem.y >= this.virus.y && elem.y <= this.virus.y + this.virus.height)
+      ) {
+        this.health = this.health - 10;
+        if (this.health <= 0) {
+          this._gameOver();
+        }
+        let index = this.droplets.indexOf(elem);
+        this.droplets.splice(index, 1);
+      }
+    })
+  }
+
   _writeHealthPoints () {
     this.ctx.fillStyle = 'white';
     this.ctx.font = "18px Arial"
@@ -92,6 +103,16 @@ class Game{
     this.ctx.fillStyle = 'white';
     this.ctx.font = "18px Arial"
     this.ctx.fillText(`Reputation Points: ${this.points}`, 15, 490)
+  }
+
+  _gameOver () {
+    clearInterval(this.intervalCrossing);
+    clearInterval(this.intervalFall);
+    clearInterval(this.intervalFriendsCrossing);
+    const losePage = document.getElementById('lose-page');
+    losePage.style = 'display: flex';
+    const canvas = document.getElementById('canvas');
+    canvas.style = 'display: none';
   }
 
   _clean() {
@@ -106,13 +127,14 @@ class Game{
     this._drawDroplets();
     this._drawEnemies();
     this._drawFriends();
+    this._checkDropletCollision();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
         this.droplets[counterFall]._fallObjects();
         counterFall++;
       }
-    }, 1500);
+    }, 1800);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
@@ -130,6 +152,7 @@ class Game{
     window.requestAnimationFrame(() => this._update());
   }
 
+
   start() {
     this._assignControls();
     this.intervalGame = setInterval(() => {
@@ -139,8 +162,5 @@ class Game{
     }, 1500);
     this._update();
   }
-
-
-
 
 }
