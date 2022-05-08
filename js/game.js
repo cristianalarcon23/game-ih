@@ -6,9 +6,11 @@ class Game{
     this.points = 0;
     this.droplets = [];
     this.enemies = [];
+    this.friends = [];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
+    this.intervalFriendsCrossing = undefined;
   }
 
   _drawVirus () {
@@ -30,6 +32,16 @@ class Game{
     })
   }
 
+  
+  _drawFriends () {
+    this.friends.forEach((elem) => {
+      this.ctx.fillStyle = "red";
+      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+    })
+  }
+
+
+
   _generateEnemies () {
     const newEnemy = new Enemy (60, 60);
     newEnemy._assignEnemies();
@@ -41,6 +53,19 @@ class Game{
     const newObject = new Droplet (60, 60);
     newObject._assignObjects();
     this.droplets.push(newObject);
+  }
+
+  _generateEnemies () {
+    const newEnemy = new Enemy (60, 60);
+    newEnemy._assignEnemies();
+    this.enemies.push(newEnemy);
+  }
+
+  _generateFriends () {
+    const newFriend = new Friend (60, 60);
+    newFriend._assignFriends ();
+    console.log(newFriend);
+    this.friends.push(newFriend);
   }
 
   _assignControls() {
@@ -80,6 +105,7 @@ class Game{
     this._writeReputationPoints();
     this._drawDroplets();
     this._drawEnemies();
+    this._drawFriends();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
@@ -93,7 +119,14 @@ class Game{
         this.enemies[counterCross]._crossingEnemies();
         counterCross++;
       }
-    }, 2500);
+    }, 1800);
+    let counterCrossFriend = 0;
+    this.intervalFriendsCrossing = setInterval(() => { 
+      if (counterCrossFriend < this.friends.length) {
+        this.friends[counterCrossFriend]._crossingFriends();
+        counterCrossFriend++;
+      }
+    }, 1600);
     window.requestAnimationFrame(() => this._update());
   }
 
@@ -102,7 +135,8 @@ class Game{
     this.intervalGame = setInterval(() => {
       this._generateDroplets();
       this._generateEnemies();
-    }, 1000);
+      this._generateFriends();
+    }, 1500);
     this._update();
   }
 
