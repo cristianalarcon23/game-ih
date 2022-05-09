@@ -15,7 +15,7 @@ class Bullet {
             } else {
                 this.y = this.y - 12;
             }
-        }, 50);
+        }, 200);
     }
 
     isBulletOffScreen () {

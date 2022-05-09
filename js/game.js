@@ -7,7 +7,7 @@ class Game{
     this.droplets = [];
     this.enemies = [];
     this.friends = [];
-    this.bullets = [(new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15))];
+    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15)];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
@@ -20,6 +20,7 @@ class Game{
   }
 
   _drawBullet () {
+    this.bullets[0].shootBullet();
     this.bullets.forEach((elem) => {
       this.ctx.fillStyle = "yellow";
       this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
@@ -58,7 +59,7 @@ class Game{
   }
 
   _generateDroplets () {
-    const newObject = new Droplet (60, 60);
+    const newObject = new Droplet (80, 80);
     newObject._assignObjects();
     this.droplets.push(newObject);
   }
@@ -113,6 +114,40 @@ class Game{
     })
   }
 
+  _checkEnemyCollision() {
+    this.enemies.forEach((elem) => {
+      if (
+        (this.bullets[0].x >= elem.x && this.bullets[0].x <= elem.x + elem.width || 
+        this.bullets[0].x + this.bullets[0].width >= elem.x && this.bullets[0].x + this.bullets[0].width <= elem.x + elem.width || 
+        elem.x >= this.bullets[0].x && elem.x <= this.bullets[0].x + this.bullets[0].width) && 
+        (this.bullets[0].y >= elem.y && this.bullets[0].y <= elem.y + elem.height || 
+          this.bullets[0].y + this.bullets[0].height >= elem.y && this.bullets[0].y + this.bullets[0].height <= elem.y + elem.height || 
+          elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
+      ) {
+        this.points = this.points + 10;
+        let index = this.enemies.indexOf(elem);
+        this.enemies.splice(index, 1);
+      }
+    })
+  }
+
+  _checkFriendCollision() {
+    this.friends.forEach((elem) => {
+      if (
+        (this.bullets[0].x >= elem.x && this.bullets[0].x <= elem.x + elem.width || 
+        this.bullets[0].x + this.bullets[0].width >= elem.x && this.bullets[0].x + this.bullets[0].width <= elem.x + elem.width || 
+        elem.x >= this.bullets[0].x && elem.x <= this.bullets[0].x + this.bullets[0].width) && 
+        (this.bullets[0].y >= elem.y && this.bullets[0].y <= elem.y + elem.height || 
+          this.bullets[0].y + this.bullets[0].height >= elem.y && this.bullets[0].y + this.bullets[0].height <= elem.y + elem.height || 
+          elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
+      ) {
+        this.points = this.points - 10;
+        let index = this.friends.indexOf(elem);
+        this.friends.splice(index, 1);
+      }
+    })
+  }
+
   _writeHealthPoints () {
     this.ctx.fillStyle = 'white';
     this.ctx.font = "18px Arial"
@@ -148,13 +183,15 @@ class Game{
     this._drawEnemies();
     this._drawFriends();
     this._checkDropletCollision();
+    this._checkFriendCollision();
+    this._checkEnemyCollision();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
         this.droplets[counterFall]._fallObjects();
         counterFall++;
       }
-    }, 1800);
+    }, 1000);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
