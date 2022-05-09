@@ -7,6 +7,7 @@ class Game{
     this.droplets = [];
     this.enemies = [];
     this.friends = [];
+    this.bullets = [(new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15))];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
@@ -17,6 +18,22 @@ class Game{
     this.ctx.fillStyle = "yellow";
     this.ctx.fillRect(this.virus.x, this.virus.y, this.virus.width, this.virus.height);
   }
+
+  _drawBullet () {
+    this.bullets.forEach((elem) => {
+      this.ctx.fillStyle = "yellow";
+      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+    })
+  }
+
+  _generateBullet () {
+      if (this.bullets[0].isBulletOffScreen()) {
+        this.bullets.splice(0, 1);
+        const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15);
+        this.bullets.push(newBullet);
+      }
+  }
+
 
   _drawDroplets () {
     this.droplets.forEach((elem) => {
@@ -39,7 +56,6 @@ class Game{
       this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
     })
   }
-
 
   _generateDroplets () {
     const newObject = new Droplet (60, 60);
@@ -68,6 +84,9 @@ class Game{
         case 'ArrowRight':
           this.virus.moveRight();
           break;
+        case 'Space':
+          this.bullets[0].shootBullet();
+          this._generateBullet();
         default:
           break;
       }
@@ -122,6 +141,7 @@ class Game{
   _update() {
     this._clean();
     this._drawVirus();
+    this._drawBullet();
     this._writeHealthPoints();
     this._writeReputationPoints();
     this._drawDroplets();
@@ -149,6 +169,7 @@ class Game{
         counterCrossFriend++;
       }
     }, 1600);
+
     window.requestAnimationFrame(() => this._update());
   }
 
