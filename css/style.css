@@ -26,7 +26,7 @@ button#start:hover {
 /* Basic styles, change according to your style */
 
 #start-page,
-#lose-page {
+#lose-page, #win-page {
   height: 500px;
   width: 1000px;
   display: flex;
@@ -40,7 +40,8 @@ button#start:hover {
   background-image: url('../img/virusbackground.jpg');
 }
 
-#lose-page {
+#lose-page, 
+#win-page {
   display: none;
 }
 

@@ -2,7 +2,7 @@ class Game{
   constructor(context) {
     this.ctx = context;
     this.virus = new Player (500, 430, 40, 40);
-    this.health = 100;
+    this.health = 50;
     this.points = 0;
     this.droplets = [];
     this.enemies = [];
@@ -13,6 +13,8 @@ class Game{
     this.intervalCrossing = undefined;
     this.intervalFriendsCrossing = undefined;
   }
+
+  //draw all images//
 
   _drawVirus () {
     this.ctx.fillStyle = "yellow";
@@ -26,15 +28,6 @@ class Game{
       this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
     })
   }
-
-  _generateBullet () {
-      if (this.bullets[0].isBulletOffScreen()) {
-        this.bullets.splice(0, 1);
-        const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15);
-        this.bullets.push(newBullet);
-      }
-  }
-
 
   _drawDroplets () {
     this.droplets.forEach((elem) => {
@@ -50,13 +43,14 @@ class Game{
     })
   }
 
-  
   _drawFriends () {
     this.friends.forEach((elem) => {
       this.ctx.fillStyle = "red";
       this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
     })
   }
+
+//generate all images//
 
   _generateDroplets () {
     const newObject = new Droplet (70, 70);
@@ -76,6 +70,16 @@ class Game{
     this.friends.push(newFriend);
   }
 
+  _generateBullet () {
+    if (this.bullets[0].isBulletOffScreen()) {
+      this.bullets.splice(0, 1);
+      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15);
+      this.bullets.push(newBullet);
+    }
+}
+
+// control assigns//
+
   _assignControls() {
     document.addEventListener('keydown', (event) => {
       switch (event.code) {
@@ -93,6 +97,8 @@ class Game{
       }
     });
   }
+
+  //check collisions//
 
   _checkDropletCollision() {
     this.droplets.forEach((elem) => {
@@ -125,6 +131,9 @@ class Game{
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
         this.points = this.points + 10;
+        if (this.points >= 20) {
+          this._gameWon();
+        }
         let index = this.enemies.indexOf(elem);
         this.enemies.splice(index, 1);
       }
@@ -148,6 +157,8 @@ class Game{
     })
   }
 
+  //scores//
+
   _writeHealthPoints () {
     this.ctx.fillStyle = 'white';
     this.ctx.font = "18px Arial"
@@ -159,6 +170,18 @@ class Game{
     this.ctx.fillText(`Reputation Points: ${this.points}`, 15, 490)
   }
 
+  //finishing game//
+
+  _gameWon () {
+    clearInterval(this.intervalCrossing);
+    clearInterval(this.intervalFall);
+    clearInterval(this.intervalFriendsCrossing);
+    const winPage = document.getElementById('win-page');
+    winPage.style = 'display: flex';
+    const canvas = document.getElementById('canvas');
+    canvas.style = 'display: none';
+  }
+
   _gameOver () {
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
@@ -168,6 +191,8 @@ class Game{
     const canvas = document.getElementById('canvas');
     canvas.style = 'display: none';
   }
+
+  //necessary functions to update canvas//
 
   _clean() {
     this.ctx.clearRect(0, 0, 1000, 500);
@@ -191,21 +216,21 @@ class Game{
         this.droplets[counterFall]._fallObjects();
         counterFall++;
       }
-    }, 1000);
+    }, 1200);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
         this.enemies[counterCross]._crossingEnemies();
         counterCross++;
       }
-    }, 1800);
+    }, 1500);
     let counterCrossFriend = 0;
     this.intervalFriendsCrossing = setInterval(() => { 
       if (counterCrossFriend < this.friends.length) {
         this.friends[counterCrossFriend]._crossingFriends();
         counterCrossFriend++;
       }
-    }, 1600);
+    }, 1500);
 
     window.requestAnimationFrame(() => this._update());
   }
