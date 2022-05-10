@@ -15,7 +15,7 @@ class Friend {
             } else {
                 this.x = this.x - 1;
             }
-        }, 300);
+        }, 800);
     }
 
 

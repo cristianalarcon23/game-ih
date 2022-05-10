@@ -15,7 +15,7 @@ class Droplet {
             } else {
                 this.y = this.y + 1;
             }
-        }, 100);
+        }, 300);
     }
 
 

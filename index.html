@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css"/>
   <title>Negationist Virus 19</title>
 </head>
@@ -11,25 +12,39 @@
 
   <div id="start-page">
     <main>
-      <h1>THE SMARTEST VIRUS ATTACKS!</h1>
-      <p>Instructions / Description</p>
+      <h1 class="title">THE SMARTEST VIRUS ATTACKS!</h1>
+      <p class="instructions1">A new virus strain has been discovered... Its enemies are... DENIERS!</p>
       <button id="start">START</button>
+    </main>
+  </div>
+
+  <div id="instructions-page" class="hidden">
+    <main>
+      <h1 class="title1">Instructions!</h1>
+      <p class="instructions">Your goal is to infect as much deniers as you can! 
+      <p class="instructions">Use arrows on your keyboard to move left and right and the space bar to shoot deniers!</p>
+      <p class="instructions">But be careful, you don't want to be an extinct virus!</p>
+      <p></p>
+      <button id="easy">EASY</button>
+      <button id="medium">MEDIUM</button>
+      <button id="ironhacker">IRONHACKER</button>
     </main>
   </div>
 
     <div id="lose-page">
     <main>
-      <h1>YOU LOSE SUCKER</h1>
+      <h1 class="'title">YOU LOSE SUCKER</h1>
     </main>
   </div>
 
   <div id="win-page">
     <main>
-      <h1>YOU WIN!! YOU ARE THE BOSS-E</h1>
+      <h1 class="title-win">YOU WIN! YOU ARE THE BOSS-E!</h1>
     </main>
   </div>
 
   <canvas id="canvas" width="1000" height="500" class="hidden"></canvas>
+  <script src="js/assets.js"></script>
   <script src="js/player.js"></script>
   <script src="js/droplets.js"></script>
   <script src="js/bullets.js"></script>

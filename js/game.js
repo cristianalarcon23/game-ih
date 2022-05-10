@@ -1,13 +1,13 @@
 class Game{
   constructor(context) {
     this.ctx = context;
-    this.virus = new Player (500, 430, 40, 40);
+    this.virus = new Player (500, 420, 80, 80);
     this.health = 50;
     this.points = 0;
     this.droplets = [];
     this.enemies = [];
     this.friends = [];
-    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15)];
+    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 420, 20, 20)];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
@@ -17,15 +17,13 @@ class Game{
   //draw all images//
 
   _drawVirus () {
-    this.ctx.fillStyle = "yellow";
-    this.ctx.fillRect(this.virus.x, this.virus.y, this.virus.width, this.virus.height);
+    this.ctx.drawImage(imgVirus, this.virus.x, this.virus.y, this.virus.width, this.virus.height);
   }
 
   _drawBullet () {
     this.bullets[0].shootBullet();
     this.bullets.forEach((elem) => {
-      this.ctx.fillStyle = "yellow";
-      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+      this.ctx.drawImage(imgBullet, elem.x, elem.y, 20, 20);
     })
   }
 
@@ -38,8 +36,7 @@ class Game{
 
   _drawEnemies () {
     this.enemies.forEach((elem) => {
-      this.ctx.fillStyle = "green";
-      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+      this.ctx.drawImage(imgBose, elem.x, elem.y, elem.width, elem.height);
     })
   }
 
@@ -71,9 +68,9 @@ class Game{
   }
 
   _generateBullet () {
-    if (this.bullets[0].isBulletOffScreen()) {
-      this.bullets.splice(0, 1);
-      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 430, 5, 15);
+   if (this.bullets[0].isBulletOffScreen()) {
+     this.bullets.splice(0, 1);
+      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 420, 20, 20);
       this.bullets.push(newBullet);
     }
 }
@@ -176,6 +173,8 @@ class Game{
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
     clearInterval(this.intervalFriendsCrossing);
+    const losePage = document.getElementById('lose-page');
+    losePage.style = 'display: none';
     const winPage = document.getElementById('win-page');
     winPage.style = 'display: flex';
     const canvas = document.getElementById('canvas');
