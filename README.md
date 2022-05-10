@@ -13,7 +13,9 @@ Minimum user stories:
 
 - User can move left 
 - User can move right
-- User can receive damage when colliding with drops 
+- User can receive damage when colliding with drops
+- User can increase/decrease reputation points
+- User can shoot enemies and friends
 
 ## User stories Backlog
 

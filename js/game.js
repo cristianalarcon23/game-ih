@@ -59,7 +59,7 @@ class Game{
   }
 
   _generateDroplets () {
-    const newObject = new Droplet (80, 80);
+    const newObject = new Droplet (70, 70);
     newObject._assignObjects();
     this.droplets.push(newObject);
   }
