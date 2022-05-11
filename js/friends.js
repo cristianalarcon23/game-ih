@@ -6,6 +6,7 @@ class Friend {
         this.height = height;
         this.fallInterval = undefined;
         this.role = undefined;
+        this.image = undefined;
     }
 
     _crossingFriends () {

@@ -1,11 +1,12 @@
 class Droplet {
     constructor (width, height) {
-        this.x = Math.floor(Math.random() * (940 - 4) + 5);
+        this.x = Math.floor(Math.random() * (920 - 4) + 5);
         this.y = -60;
         this.width = width;
         this.height = height;
         this.fallInterval = undefined;
         this.role = undefined;
+        this.image = undefined;
     }
 
     _fallObjects () {

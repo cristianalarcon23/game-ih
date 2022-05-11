@@ -20,7 +20,7 @@ Minimum user stories:
 ## User stories Backlog
 
 - User can choose difficult level.
-- User can lose when health points equal 0.
+- User can lose when health points equals 0.
 - User can win when reputation points equals 50.
 - User can play against final boss.
 
