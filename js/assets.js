@@ -8,4 +8,4 @@ const imgBose = new Image();
 imgBose.src = './img/BOSE.png';
 
 const imgPutin = new Image();
-imgPutin.src = './img/putinpng.png'
+imgPutin.src = './img/putinpng2.png'
