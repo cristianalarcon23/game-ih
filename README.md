@@ -9,8 +9,6 @@ Welcome! In this game you can be the smartest virus strain never seen, your goal
 
 ## User stories MVP
 
-Minimum user stories:
-
 - User can move left.
 - User can move right.
 - User can receive damage when colliding with drops.
