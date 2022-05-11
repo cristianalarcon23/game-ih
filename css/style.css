@@ -117,7 +117,7 @@ canvas {
 }
 .title1 {
   font-size: 60px;
-  color: black;
+  color: red;
   letter-spacing: 2px;
 }
 .title2 {
@@ -142,4 +142,14 @@ canvas {
   font-size: 25px;
   color: wheat;
   letter-spacing: 2px;
+}
+
+.span1 {
+  font-size: 30px;
+  color: red;
+}
+
+.span {
+  font-size: 80px;
+  color: red
 }
