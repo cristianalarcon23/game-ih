@@ -5,7 +5,7 @@
 
 ## Description
 
-Game's purpose and description
+Welcome! In this game you can be the smartest virus strain never seen, your goal is to infect as much deniers as possible. Be careful with all these strange things falling from top, you are viric but healthy! If you reach some good reputation with your targets you will win! Happy playing!
 
 ## User stories MVP
 
