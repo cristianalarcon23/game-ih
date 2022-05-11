@@ -36,7 +36,7 @@ class Game{
 
   _drawEnemies () {
     this.enemies.forEach((elem) => {
-      this.ctx.drawImage(imgBose, elem.x, elem.y, elem.width, elem.height);
+      this.ctx.drawImage(elem.image, elem.x, elem.y, elem.width, elem.height);
     })
   }
 
@@ -50,19 +50,20 @@ class Game{
 //generate all images//
 
   _generateDroplets () {
-    const newObject = new Droplet (70, 70);
+    const newObject = new Droplet (75, 75);
     newObject._assignObjects();
     this.droplets.push(newObject);
   }
 
   _generateEnemies () {
-    const newEnemy = new Enemy (60, 60);
+    const newEnemy = new Enemy (75, 75);
     newEnemy._assignEnemies();
+    console.log(newEnemy);
     this.enemies.push(newEnemy);
   }
 
   _generateFriends () {
-    const newFriend = new Friend (60, 60);
+    const newFriend = new Friend (75, 75);
     newFriend._assignFriends ();
     this.friends.push(newFriend);
   }

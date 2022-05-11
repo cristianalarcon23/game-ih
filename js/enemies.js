@@ -21,25 +21,20 @@ class Enemy {
 
 
     _assignEnemies () {
-        const assignment = Math.floor(Math.random() * 3);
+        const assignment = Math.floor(Math.random() * 2);
+        console.log(assignment);
         switch (assignment) {
-            case 1 :
+            case 0 :
                 this.role = "bose";
+                this.image = imgBose;
                 break;
-            case 2 : 
-                this.role = "flatearthbeliever";
-                break;
-            default : 
-                this.role = "bose";
+            case 1 : 
+                this.role = "putin";
+                this.image = imgPutin;
                 break;
         }
     }
 
-    _assignImage() {
-        if (this.role === 'bose') {
-            this.image = imgBose;
-          }
-      }
 
 
 } 

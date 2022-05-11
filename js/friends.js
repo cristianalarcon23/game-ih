@@ -10,7 +10,7 @@ class Friend {
 
     _crossingFriends () {
         this.fallInterval = setInterval(() => {
-            if (this.x < -60) {
+            if (this.x < -75) {
                 clearInterval(this.fallInterval);
             } else {
                 this.x = this.x - 1;
