@@ -7,7 +7,7 @@ class Game{
     this.droplets = [];
     this.enemies = [];
     this.friends = [];
-    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 420, 20, 20)];
+    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 10, 420, 20, 20)];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
@@ -23,7 +23,7 @@ class Game{
   _drawBullet () {
     this.bullets[0].shootBullet();
     this.bullets.forEach((elem) => {
-      this.ctx.drawImage(imgBullet, elem.x, elem.y, 20, 20);
+      this.ctx.drawImage(imgBullet, ((elem.x + elem.x + elem.width) / 2) - 10, elem.y, 20, 20);
     })
   }
 
@@ -71,7 +71,7 @@ class Game{
   _generateBullet () {
    if (this.bullets[0].isBulletOffScreen()) {
      this.bullets.splice(0, 1);
-      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2), 420, 20, 20);
+      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 10, 420, 20, 20);
       this.bullets.push(newBullet);
     }
 }
@@ -129,7 +129,7 @@ class Game{
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
         this.points = this.points + 10;
-        if (this.points >= 20) {
+        if (this.points >= 50) {
           this._gameWon();
         }
         let index = this.enemies.indexOf(elem);
