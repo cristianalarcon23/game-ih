@@ -4,6 +4,8 @@ window.onload = function () {
   const startPage = document.getElementById('start-page');
   const startButton = document.getElementById('start');
   const easyButton = document.getElementById('easy');
+  const mediumButton = document.getElementById('medium');
+  const ironButton = document.getElementById('ironhacker');
   const instructPage = document.getElementById('instructions-page')
   
   startButton.onclick = function () {
@@ -17,6 +19,22 @@ window.onload = function () {
     canvas.classList.remove('hidden');
     const game = new Game(ctx);
     game.start();
+  }
+
+  mediumButton.onclick = function () {
+    startPage.style = "display: none";
+    instructPage.style = "display: none";
+    canvas.classList.remove('hidden');
+    const game = new Game(ctx);
+    game.startMedium();
+  }
+
+  ironButton.onclick = function () {
+    startPage.style = "display: none";
+    instructPage.style = "display: none";
+    canvas.classList.remove('hidden');
+    const game = new Game(ctx);
+    game.startIron();
   }
 
 

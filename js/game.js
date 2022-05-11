@@ -7,11 +7,12 @@ class Game{
     this.droplets = [];
     this.enemies = [];
     this.friends = [];
-    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 10, 420, 20, 20)];
+    this.bullets = [new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 11, 420, 23, 23)];
     this.intervalFall = undefined;
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
     this.intervalFriendsCrossing = undefined;
+    this.level = undefined;
   }
 
   //draw all images//
@@ -23,14 +24,13 @@ class Game{
   _drawBullet () {
     this.bullets[0].shootBullet();
     this.bullets.forEach((elem) => {
-      this.ctx.drawImage(imgBullet, ((elem.x + elem.x + elem.width) / 2) - 10, elem.y, 20, 20);
+      this.ctx.drawImage(imgBullet, ((elem.x + elem.x + elem.width) / 2) - 11, elem.y, 23, 23);
     })
   }
 
   _drawDroplets () {
     this.droplets.forEach((elem) => {
-      this.ctx.fillStyle = "white";
-      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+      this.ctx.drawImage(elem.image, elem.x, (elem.y - 15), elem.width, elem.height);
     })
   }
 
@@ -42,15 +42,14 @@ class Game{
 
   _drawFriends () {
     this.friends.forEach((elem) => {
-      this.ctx.fillStyle = "red";
-      this.ctx.fillRect(elem.x, elem.y, elem.width, elem.height);
+      this.ctx.drawImage(elem.image, elem.x, elem.y, elem.width, elem.height);
     })
   }
 
 //generate all images//
 
   _generateDroplets () {
-    const newObject = new Droplet (75, 75);
+    const newObject = new Droplet (90, 90);
     newObject._assignObjects();
     this.droplets.push(newObject);
   }
@@ -58,7 +57,6 @@ class Game{
   _generateEnemies () {
     const newEnemy = new Enemy (75, 75);
     newEnemy._assignEnemies();
-    console.log(newEnemy);
     this.enemies.push(newEnemy);
   }
 
@@ -71,7 +69,7 @@ class Game{
   _generateBullet () {
    if (this.bullets[0].isBulletOffScreen()) {
      this.bullets.splice(0, 1);
-      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 10, 420, 20, 20);
+      const newBullet = new Bullet (((this.virus.x + this.virus.x + this.virus.width) / 2) - 11, 420, 23, 23);
       this.bullets.push(newBullet);
     }
 }
@@ -88,6 +86,7 @@ class Game{
           this.virus.moveRight();
           break;
         case 'Space':
+          shootSound.play();
           this.bullets[0].shootBullet();
           this._generateBullet();
         default:
@@ -108,6 +107,7 @@ class Game{
           this.virus.y + this.virus.height >= elem.y && this.virus.y + this.virus.height <= elem.y + elem.height || 
           elem.y >= this.virus.y && elem.y <= this.virus.y + this.virus.height)
       ) {
+        dropSound.play();
         this.health = this.health - 10;
         if (this.health <= 0) {
           this._gameOver();
@@ -128,6 +128,7 @@ class Game{
           this.bullets[0].y + this.bullets[0].height >= elem.y && this.bullets[0].y + this.bullets[0].height <= elem.y + elem.height || 
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
+        crySound.play();
         this.points = this.points + 10;
         if (this.points >= 50) {
           this._gameWon();
@@ -148,6 +149,7 @@ class Game{
           this.bullets[0].y + this.bullets[0].height >= elem.y && this.bullets[0].y + this.bullets[0].height <= elem.y + elem.height || 
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
+        wrongSound.play();
         this.points = this.points - 10;
         let index = this.friends.indexOf(elem);
         this.friends.splice(index, 1);
@@ -171,9 +173,11 @@ class Game{
   //finishing game//
 
   _gameWon () {
+    gwSound.play();
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
     clearInterval(this.intervalFriendsCrossing);
+    this._clean();
     const losePage = document.getElementById('lose-page');
     losePage.style = 'display: none';
     const winPage = document.getElementById('win-page');
@@ -183,6 +187,9 @@ class Game{
   }
 
   _gameOver () {
+    this._clean();
+    goSound.play();
+    this.droplets = [];
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
     clearInterval(this.intervalFriendsCrossing);
@@ -216,21 +223,95 @@ class Game{
         this.droplets[counterFall]._fallObjects();
         counterFall++;
       }
-    }, 1200);
+    }, 1750);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
         this.enemies[counterCross]._crossingEnemies();
         counterCross++;
       }
-    }, 1500);
+    }, 2000);
     let counterCrossFriend = 0;
     this.intervalFriendsCrossing = setInterval(() => { 
       if (counterCrossFriend < this.friends.length) {
         this.friends[counterCrossFriend]._crossingFriends();
         counterCrossFriend++;
       }
-    }, 1500);
+    }, 1750);
+
+    window.requestAnimationFrame(() => this._update());
+  }
+
+  _updateMedium() {
+    this._clean();
+    this._drawVirus();
+    this._drawBullet();
+    this._writeHealthPoints();
+    this._writeReputationPoints();
+    this._drawDroplets();
+    this._drawEnemies();
+    this._drawFriends();
+    this._checkDropletCollision();
+    this._checkFriendCollision();
+    this._checkEnemyCollision();
+    let counterFall = 0;
+    this.intervalFall = setInterval(() => { 
+      if (counterFall < this.droplets.length) {
+        this.droplets[counterFall]._fallObjects();
+        counterFall++;
+      }
+    }, 500);
+    let counterCross = 0;
+    this.intervalCrossing = setInterval(() => { 
+      if (counterCross < this.enemies.length) {
+        this.enemies[counterCross]._crossingEnemiesMedium();
+        counterCross++;
+      }
+    }, );
+    let counterCrossFriend = 0;
+    this.intervalFriendsCrossing = setInterval(() => { 
+      if (counterCrossFriend < this.friends.length) {
+        this.friends[counterCrossFriend]._crossingFriends();
+        counterCrossFriend++;
+      }
+    }, 2000);
+
+    window.requestAnimationFrame(() => this._update());
+  }
+
+  _updateIron() {
+    this._clean();
+    this._drawVirus();
+    this._drawBullet();
+    this._writeHealthPoints();
+    this._writeReputationPoints();
+    this._drawDroplets();
+    this._drawEnemies();
+    this._drawFriends();
+    this._checkDropletCollision();
+    this._checkFriendCollision();
+    this._checkEnemyCollision();
+    let counterFall = 0;
+    this.intervalFall = setInterval(() => { 
+      if (counterFall < this.droplets.length) {
+        this.droplets[counterFall]._fallObjects();
+        counterFall++;
+      }
+    }, 500);
+    let counterCross = 0;
+    this.intervalCrossing = setInterval(() => { 
+      if (counterCross < this.enemies.length) {
+        this.enemies[counterCross]._crossingEnemiesIron();
+        counterCross++;
+      }
+    }, 50);
+    let counterCrossFriend = 0;
+    this.intervalFriendsCrossing = setInterval(() => { 
+      if (counterCrossFriend < this.friends.length) {
+        this.friends[counterCrossFriend]._crossingFriends();
+        counterCrossFriend++;
+      }
+    }, 2000);
 
     window.requestAnimationFrame(() => this._update());
   }
@@ -244,6 +325,27 @@ class Game{
       this._generateFriends();
     }, 1500);
     this._update();
+  }
+
+  startMedium() {
+    this._assignControls();
+    this.intervalGame = setInterval(() => {
+      this._generateDroplets();
+      this._generateEnemies();
+      this._generateFriends();
+    }, 1500);
+    this._updateMedium();
+  }
+
+  startIron() {
+    this._assignControls();
+    this.health = 20;
+    this.intervalGame = setInterval(() => {
+      this._generateDroplets();
+      this._generateEnemies();
+      this._generateFriends();
+    }, 1500);
+    this._updateIron();
   }
 
 }

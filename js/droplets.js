@@ -1,7 +1,7 @@
 class Droplet {
     constructor (width, height) {
         this.x = Math.floor(Math.random() * (920 - 4) + 5);
-        this.y = -60;
+        this.y = -90;
         this.width = width;
         this.height = height;
         this.fallInterval = undefined;
@@ -11,29 +11,37 @@ class Droplet {
 
     _fallObjects () {
         this.fallInterval = setInterval(() => {
-            if (this.y > 500) {
+            if (this.y > 520) {
                 clearInterval(this.fallInterval);
             } else {
-                this.y = this.y + 1;
+                this.y = this.y + 2;
             }
-        }, 300);
+        }, 500);
+    }
+
+    _fallObjectsMedium () {
+        this.fallInterval = setInterval(() => {
+            if (this.y > 520) {
+                clearInterval(this.fallInterval);
+            } else {
+                this.y = this.y + 14;
+            }
+        }, 1000);
     }
 
 
     _assignObjects () {
-        const assignment = Math.floor(Math.random() * 4);
+        const assignment = Math.floor(Math.random() * 2);
         switch (assignment) {
-            case 1 :
+            case 0 :
                 this.role = "mask";
+                this.image = imgMask;
                 break;
-            case 2 : 
-                this.role = "certificate";
-                break;
-            case 3 : 
+            case 1 : 
                 this.role = "hydrogel";
-                break;
-            default : 
-                this.role = "mask";
+                this.image = hydroImg;
+                this.width = this.width + 10;
+                this.height = this.height + 10;
                 break;
         }
     }

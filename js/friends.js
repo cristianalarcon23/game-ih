@@ -14,23 +14,22 @@ class Friend {
             if (this.x < -75) {
                 clearInterval(this.fallInterval);
             } else {
-                this.x = this.x - 1;
+                this.x = this.x - 6;
             }
-        }, 800);
+        }, 1200);
     }
 
 
     _assignFriends () {
-        const assignment = Math.floor(Math.random() * 3);
+        const assignment = Math.floor(Math.random() * 2);
         switch (assignment) {
-            case 1 :
-                this.role = "fernandosimon";
+            case 0 :
+                this.role = "friends";
+                this.image = imgFriends;
                 break;
-            case 2 : 
-                this.role = "whopresident";
-                break;
-            default : 
-                this.role = "fernandosimon";
+            case 1 : 
+                this.role = "friends2";
+                this.image = imgFriends2;
                 break;
         }
     }

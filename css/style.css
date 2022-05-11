@@ -43,12 +43,19 @@ button#easy, button#medium, button#ironhacker {
 	-o-border-radius: 7px;
 	border-radius: 7px;
     cursor: pointer;
-    font-size: 30pt;
+    font-size: 23pt;
     padding: 10px;
-  
+    border-bottom: 50px;
 }
 
-button#start:hover, button#easy:hover, button#medium:hover, button#ironhacker:hover {
+.divbuttons {
+  display: grid;
+  vertical-align: auto;
+  align-self: center;
+}
+
+button#start:hover, button#easy:hover, 
+button#medium:hover, button#ironhacker:hover {
   background-color: lightgray;
   color: black;
 }
