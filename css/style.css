@@ -116,8 +116,13 @@ canvas {
   letter-spacing: 2px;
 }
 .title1 {
-  font-size: 50px;
+  font-size: 60px;
   color: black;
+  letter-spacing: 2px;
+}
+.title2 {
+  font-size: 60px;
+  color: wheat;
   letter-spacing: 2px;
 }
 
