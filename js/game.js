@@ -1,7 +1,7 @@
 class Game{
   constructor(context) {
     this.ctx = context;
-    this.virus = new Player (500, 420, 80, 80);
+    this.virus = new Player (460, 420, 80, 80);
     this.health = 50;
     this.points = 0;
     this.droplets = [];
