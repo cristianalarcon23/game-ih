@@ -16,7 +16,7 @@ class Droplet {
             } else {
                 this.y = this.y + 2;
             }
-        }, 500);
+        }, 3000);
     }
 
     _fallObjectsMedium () {
@@ -24,9 +24,19 @@ class Droplet {
             if (this.y > 520) {
                 clearInterval(this.fallInterval);
             } else {
-                this.y = this.y + 14;
+                this.y = this.y + 4;
             }
-        }, 1000);
+        }, 2000);
+    }
+
+    _fallObjectsIron () {
+        this.fallInterval = setInterval(() => {
+            if (this.y > 520) {
+                clearInterval(this.fallInterval);
+            } else {
+                this.y = this.y + 4;
+            }
+        }, 2000);
     }
 
 

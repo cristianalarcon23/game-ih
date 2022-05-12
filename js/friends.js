@@ -14,6 +14,26 @@ class Friend {
             if (this.x < -75) {
                 clearInterval(this.fallInterval);
             } else {
+                this.x = this.x - 4;
+            }
+        }, 1200);
+    }
+
+    _crossingFriendsMedium () {
+        this.fallInterval = setInterval(() => {
+            if (this.x < -75) {
+                clearInterval(this.fallInterval);
+            } else {
+                this.x = this.x - 6;
+            }
+        }, 1400);
+    }
+
+    _crossingFriendsIron () {
+        this.fallInterval = setInterval(() => {
+            if (this.x < -75) {
+                clearInterval(this.fallInterval);
+            } else {
                 this.x = this.x - 6;
             }
         }, 1200);

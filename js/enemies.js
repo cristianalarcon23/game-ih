@@ -14,9 +14,9 @@ class Enemy {
             if (this.x > 1000) {
                 clearInterval(this.fallInterval);
             } else {
-                this.x = this.x + 3;
+                this.x = this.x + 2;
             }
-        }, 1000);
+        }, 1500);
     }
 
     _crossingEnemiesMedium () {
@@ -24,9 +24,9 @@ class Enemy {
             if (this.x > 1000) {
                 clearInterval(this.fallInterval);
             } else {
-                this.x = this.x + 6;
+                this.x = this.x + 4;
             }
-        }, 500);
+        }, 1500);
     }
 
     _crossingEnemiesIron () {
@@ -34,9 +34,9 @@ class Enemy {
             if (this.x > 1000) {
                 clearInterval(this.fallInterval);
             } else {
-                this.x = this.x + 15;
+                this.x = this.x + 4;
             }
-        }, 500);
+        }, 1200);
     }
     
 

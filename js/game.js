@@ -187,8 +187,7 @@ class Game{
   }
 
   _gameOver () {
-    this._clean();
-    goSound.play();
+    goSound.play();    
     this.droplets = [];
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
@@ -257,26 +256,26 @@ class Game{
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
-        this.droplets[counterFall]._fallObjects();
+        this.droplets[counterFall]._fallObjectsMedium();
         counterFall++;
       }
-    }, 500);
+    }, 1500);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
         this.enemies[counterCross]._crossingEnemiesMedium();
         counterCross++;
       }
-    }, );
+    }, 1000);
     let counterCrossFriend = 0;
     this.intervalFriendsCrossing = setInterval(() => { 
       if (counterCrossFriend < this.friends.length) {
-        this.friends[counterCrossFriend]._crossingFriends();
+        this.friends[counterCrossFriend]._crossingFriendsMedium();
         counterCrossFriend++;
       }
-    }, 2000);
+    }, 1000);
 
-    window.requestAnimationFrame(() => this._update());
+    window.requestAnimationFrame(() => this._updateMedium());
   }
 
   _updateIron() {
@@ -294,26 +293,26 @@ class Game{
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
-        this.droplets[counterFall]._fallObjects();
+        this.droplets[counterFall]._fallObjectsIron();
         counterFall++;
       }
-    }, 500);
+    }, 1000);
     let counterCross = 0;
     this.intervalCrossing = setInterval(() => { 
       if (counterCross < this.enemies.length) {
         this.enemies[counterCross]._crossingEnemiesIron();
         counterCross++;
       }
-    }, 50);
+    }, 1000);
     let counterCrossFriend = 0;
     this.intervalFriendsCrossing = setInterval(() => { 
       if (counterCrossFriend < this.friends.length) {
-        this.friends[counterCrossFriend]._crossingFriends();
+        this.friends[counterCrossFriend]._crossingFriendsIron();
         counterCrossFriend++;
       }
     }, 2000);
 
-    window.requestAnimationFrame(() => this._update());
+    window.requestAnimationFrame(() => this._updateIron());
   }
 
 
@@ -329,6 +328,7 @@ class Game{
 
   startMedium() {
     this._assignControls();
+    this.health = 30;
     this.intervalGame = setInterval(() => {
       this._generateDroplets();
       this._generateEnemies();
