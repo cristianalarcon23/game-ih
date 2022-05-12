@@ -29,13 +29,13 @@ const shootSound = new Audio();
 shootSound.src = './sounds/shoot.wav'
 
 const goSound = new Audio();
-goSound.src = './sounds/gameover.wav'
+goSound.src = './sounds/gameover.mp3'
 
 const gwSound = new Audio();
 gwSound.src = './sounds/gamewin.wav'
 
 const wrongSound = new Audio();
-wrongSound.src = './sounds/wrong.wav'
+wrongSound.src = './sounds/wrong.mp3'
 
 
 const dropSound = new Audio();
