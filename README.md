@@ -30,7 +30,7 @@ Welcome! In this game you can be the smartest virus strain never seen, your goal
 - <code>friends.js</code>: contains all friends class properties.
 - <code>enemies.js</code>: contains all enemies class properties.
 - <code>bullets.js</code>: contains all bullets class properties.
-- <code>assets.js</code>: contains all images.
+- <code>assets.js</code>: contains all images and sounds.
 
 ## Useful links
 
