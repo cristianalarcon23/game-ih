@@ -34,8 +34,6 @@ class Game{
     })
   }
 
-
-
   _drawEnemies () {
     this.enemies.forEach((elem) => {
       this.ctx.drawImage(elem.image, elem.x, elem.y, elem.width, elem.height);
