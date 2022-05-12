@@ -328,7 +328,7 @@ class Game{
 
   startMedium() {
     this._assignControls();
-    this.health = 30;
+    this.health = 50;
     this.intervalGame = setInterval(() => {
       this._generateDroplets();
       this._generateEnemies();
