@@ -2,7 +2,7 @@ class Game{
   constructor(context) {
     this.ctx = context;
     this.virus = new Player (460, 420, 80, 80);
-    this.health = 50;
+    this.health = 60;
     this.points = 0;
     this.droplets = [];
     this.enemies = [];
@@ -33,6 +33,8 @@ class Game{
       this.ctx.drawImage(elem.image, elem.x, (elem.y - 15), elem.width, elem.height);
     })
   }
+
+
 
   _drawEnemies () {
     this.enemies.forEach((elem) => {
@@ -73,6 +75,36 @@ class Game{
       this.bullets.push(newBullet);
     }
 }
+
+//check if out screen all objects//
+
+_checkIfOutScreen () {
+  this.droplets.forEach((elem) => {
+    if (elem.y > 600) {
+      let index = this.droplets.indexOf(elem);
+      this.droplets.splice(index, 1);
+    }
+  })
+}
+
+_checkIfEnemyIsOut () {
+  this.enemies.forEach((elem) => {
+    if (elem.x > 1100) {
+      let index = this.enemies.indexOf(elem);
+      this.enemies.splice(index, 1);
+    }
+  })
+}
+
+_checkIfFriendIsOut () {
+  this.friends.forEach((elem) => {
+    if (elem.x < -100) {
+      let index = this.friends.indexOf(elem);
+      this.friends.splice(index, 1);
+    }
+  })
+}
+
 
 // control assigns//
 
@@ -216,6 +248,9 @@ class Game{
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
+    this._checkIfOutScreen();
+    this._checkIfEnemyIsOut();
+    this._checkIfFriendIsOut();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
@@ -253,6 +288,9 @@ class Game{
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
+    this._checkIfOutScreen();
+    this._checkIfEnemyIsOut();
+    this._checkIfFriendIsOut();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
@@ -290,6 +328,9 @@ class Game{
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
+    this._checkIfOutScreen();
+    this._checkIfEnemyIsOut();
+    this._checkIfFriendIsOut();
     let counterFall = 0;
     this.intervalFall = setInterval(() => { 
       if (counterFall < this.droplets.length) {
@@ -328,7 +369,7 @@ class Game{
 
   startMedium() {
     this._assignControls();
-    this.health = 50;
+    this.health = 40;
     this.intervalGame = setInterval(() => {
       this._generateDroplets();
       this._generateEnemies();
