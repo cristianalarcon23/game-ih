@@ -2,6 +2,7 @@
 
 
 [<img src="./img/presentation.png">]()
+[<img src="./img/BOSE.jpg">]()
 
 ## Description
 
