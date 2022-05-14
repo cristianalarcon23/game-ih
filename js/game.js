@@ -12,7 +12,8 @@ class Game{
     this.intervalGame = undefined;
     this.intervalCrossing = undefined;
     this.intervalFriendsCrossing = undefined;
-    this.level = undefined;
+    this.explosion = undefined;
+    this.explosionInterval = undefined;
   }
 
   //draw all images//
@@ -137,7 +138,7 @@ _checkIfFriendIsOut () {
           this.virus.y + this.virus.height >= elem.y && this.virus.y + this.virus.height <= elem.y + elem.height || 
           elem.y >= this.virus.y && elem.y <= this.virus.y + this.virus.height)
       ) {
-        dropSound.play();
+        wrongSound.play();
         this.health = this.health - 10;
         if (this.health <= 0) {
           this._gameOver();
@@ -159,6 +160,7 @@ _checkIfFriendIsOut () {
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
         crySound.play();
+        this._applyExplosion();
         this.points = this.points + 10;
         if (this.points >= 50) {
           this._gameWon();
@@ -179,7 +181,7 @@ _checkIfFriendIsOut () {
           this.bullets[0].y + this.bullets[0].height >= elem.y && this.bullets[0].y + this.bullets[0].height <= elem.y + elem.height || 
           elem.y >= this.bullets[0].y && elem.y <= this.bullets[0].y + this.bullets[0].height)
       ) {
-        wrongSound.play();
+        dropSound.play();
         this.points = this.points - 10;
         let index = this.friends.indexOf(elem);
         this.friends.splice(index, 1);
@@ -187,16 +189,38 @@ _checkIfFriendIsOut () {
     })
   }
 
-  //scores//
+//apply sprite//
 
+  _applyExplosion() {
+    let counter = 0;
+    this.explosionInterval = setInterval(() => {
+      if (counter < explosions.length) {
+        this.explosion = explosions[counter];
+        counter++;
+      }
+      if (counter == explosions.length) {
+        this.explosion = undefined;
+        clearInterval(this.explosionInterval);
+        counter = 0;
+      }
+    }, 40);
+  }
+
+  _drawExplosion() {
+    if (this.explosion) {
+      this.ctx.drawImage(this.explosion, this.bullets[0].x, this.bullets[0].y, 20, 20);
+    }
+  }
+
+  //scores//
   _writeHealthPoints () {
     this.ctx.fillStyle = 'white';
-    this.ctx.font = "18px Arial"
-    this.ctx.fillText(`Health Points: ${this.health}`, 840, 490)
+    this.ctx.font = "18px Alfa Slab One"
+    this.ctx.fillText(`Health Points: ${this.health}`, 820, 490)
   }
   _writeReputationPoints () {
     this.ctx.fillStyle = 'white';
-    this.ctx.font = "18px Arial"
+    this.ctx.font = "18px Alfa Slab One"
     this.ctx.fillText(`Reputation Points: ${this.points}`, 15, 490)
   }
 
@@ -204,6 +228,7 @@ _checkIfFriendIsOut () {
 
   _gameWon () {
     gwSound.play();
+    wrongSound.pause();  
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
     clearInterval(this.intervalFriendsCrossing);
@@ -217,7 +242,8 @@ _checkIfFriendIsOut () {
   }
 
   _gameOver () {
-    goSound.play();    
+    goSound.play();
+    wrongSound.pause();   
     this.droplets = [];
     clearInterval(this.intervalCrossing);
     clearInterval(this.intervalFall);
@@ -243,6 +269,7 @@ _checkIfFriendIsOut () {
     this._drawDroplets();
     this._drawEnemies();
     this._drawFriends();
+    this._drawExplosion();
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
