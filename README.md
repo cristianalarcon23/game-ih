@@ -1,4 +1,4 @@
-# Game name
+# VIRUS ATTACK!
 
 
 [<img src="./img/presentation.png">]()
