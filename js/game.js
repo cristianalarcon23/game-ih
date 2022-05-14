@@ -198,17 +198,17 @@ _checkIfFriendIsOut () {
         this.explosion = explosions[counter];
         counter++;
       }
-      if (counter == explosions.length) {
+      if (counter === explosions.length) {
         this.explosion = undefined;
         clearInterval(this.explosionInterval);
         counter = 0;
       }
-    }, 40);
+    }, 150);
   }
 
   _drawExplosion() {
     if (this.explosion) {
-      this.ctx.drawImage(this.explosion, this.bullets[0].x, this.bullets[0].y, 20, 20);
+      this.ctx.drawImage(this.explosion, this.bullets[0].x -20, 20, 75, 75);
     }
   }
 
@@ -310,6 +310,7 @@ _checkIfFriendIsOut () {
     this._drawDroplets();
     this._drawEnemies();
     this._drawFriends();
+    this._drawExplosion();
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
@@ -350,6 +351,7 @@ _checkIfFriendIsOut () {
     this._drawDroplets();
     this._drawEnemies();
     this._drawFriends();
+    this._drawExplosion();
     this._checkDropletCollision();
     this._checkFriendCollision();
     this._checkEnemyCollision();
