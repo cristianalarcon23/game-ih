@@ -203,7 +203,7 @@ _checkIfFriendIsOut () {
         clearInterval(this.explosionInterval);
         counter = 0;
       }
-    }, 150);
+    }, 30);
   }
 
   _drawExplosion() {
