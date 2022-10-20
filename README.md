@@ -38,6 +38,6 @@ Welcome! In this game you can be the smartest virus strain never seen, your goal
 <!-- When you finish, add these links and commit -->
 
 - [Presentation slides](https://slides.com/d/GWgVDjs/live)
-- [Deployed game](https://cristianalarcon23.github.io/game-ih/) 
+- [Deployed game](https://cristianalarcon23.github.io/virus-attack/) 
 
 
